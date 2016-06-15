@@ -55,9 +55,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -82,7 +82,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/07/Electronでmysql3を使おうとしたら色々大変だった/">Electronでmysql3を使おうとしたら色々大変だった</a>
+      <a class="article-title" href="/2016/06/07/Electronでmysql3を使おうとしたら色々大変だった/">Electronでsqlite3を使おうとしたら色々大変だった</a>
     </h1>
   
 
@@ -107,11 +107,14 @@
 <p>このモジュールはNode.jsのモジュールをコンパイルしてくれるモジュールで、今回はこいつのrebuildを使ってやる。なお、Python2.7系に依存しているかもしれない。<br>それで、node_modules/sqlite3に移動し、以下を実行</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node-gyp rebuild --target=&lt;your electron version&gt; --arch=x64 --target_platform=darwin --dist-url=https://atom.io/download/atom-shell --module_name=node_sqlite3 --module_path=../lib/binding/electron-v&lt;your electron version&gt;-darwin-x64</span><br></pre></td></tr></table></figure>
 <p>実行後いろいろwarningがでるがなんとか使えるようになった。<br>個人で使うものだしまぁいいかなということでwarningは放置してます。</p>
+<p>2016-6-15追記<br>warning出たまま使ってみたらsql文は実行できるんだけどデータベースの挙動が不自然。ここにきて再度エラーを解決しようと頑張ったのでメモ。<br>まずNodeとnpmとelectronのバージョンを最新にアップデートした。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cd node_modules/sqlite3</span><br><span class="line">npm install nan@2.3.3</span><br><span class="line">npm run prepublish</span><br><span class="line">node-gyp configure --module_name=node_sqlite3 --module_path=../lib/binding/node-(your version)-darwin-x64</span><br><span class="line">node-gyp rebuild --target=&lt;update Electron version&gt; --arch=x64 --target_platform=darwin --dist-url=https://atom.io/download/atom-shell --module_name=node_sqlite3 --module_path=../lib/binding/node-(your version)-darwin-x64</span><br></pre></td></tr></table></figure></p>
+<p>warningが出るがスルーしてsqlite3/lib/に移動し、<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv node-v48-darwin-x64 electron-v1.2-darwin-x64</span><br></pre></td></tr></table></figure></p>
+<p>sqlite3のモジュールにnan@2.3.3を突っ込んだ。<br>これで一応現在はうまく動いている。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/06/07/Electronでmysql3を使おうとしたら色々大変だった/" data-id="cip56zfof0000ebycst1d5n4s" class="article-share-link">Partager</a>
+      <a data-url="http://yoursite.com/2016/06/07/Electronでmysql3を使おうとしたら色々大変だった/" data-id="cip56zfof0000ebycst1d5n4s" class="article-share-link">Share</a>
       
       
     </footer>
@@ -151,7 +154,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/05/16/jqueryのeachは個人的に使いにくい/" data-id="cip56zfoo0001ebyc7lwro9zs" class="article-share-link">Partager</a>
+      <a data-url="http://yoursite.com/2016/05/16/jqueryのeachは個人的に使いにくい/" data-id="cip56zfoo0001ebyc7lwro9zs" class="article-share-link">Share</a>
       
       
     </footer>
@@ -193,7 +196,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/16/本当にあった怖い話【Node編】/" data-id="cip56zfp90003ebyceye8ard9" class="article-share-link">Partager</a>
+      <a data-url="http://yoursite.com/2016/04/16/本当にあった怖い話【Node編】/" data-id="cip56zfp90003ebyceye8ard9" class="article-share-link">Share</a>
       
       
     </footer>
@@ -230,7 +233,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/12/Hello/" data-id="cip56zfot0002ebyc303hywco" class="article-share-link">Partager</a>
+      <a data-url="http://yoursite.com/2016/04/12/Hello/" data-id="cip56zfot0002ebyc303hywco" class="article-share-link">Share</a>
       
       
     </footer>
@@ -265,12 +268,12 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Articles récents</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
         
           <li>
-            <a href="/2016/06/07/Electronでmysql3を使おうとしたら色々大変だった/">Electronでmysql3を使おうとしたら色々大変だった</a>
+            <a href="/2016/06/07/Electronでmysql3を使おうとしたら色々大変だった/">Electronでsqlite3を使おうとしたら色々大変だった</a>
           </li>
         
           <li>
@@ -298,7 +301,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2016 John Doe<br>
-      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>
