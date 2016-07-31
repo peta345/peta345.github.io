@@ -55,9 +55,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Søk"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -67,6 +67,61 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-今回の開発で学んだこと" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/31/今回の開発で学んだこと/" class="article-date">
+  <time datetime="2016-07-31T05:59:04.000Z" itemprop="datePublished">2016-07-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/31/今回の開発で学んだこと/">今回の開発で学んだこと</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>オープンキャンパスでweb上でくじをひけるサービスを作成しました。<br>herokuへデプロイしたとき、いくつかエラーが出たので、学んだことをまとめます。　　</p>
+<h2 id="herokuの有用コマンド"><a href="#herokuの有用コマンド" class="headerlink" title="herokuの有用コマンド"></a>herokuの有用コマンド</h2><h4 id="アプリを再起動する"><a href="#アプリを再起動する" class="headerlink" title="アプリを再起動する"></a>アプリを再起動する</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">heroku restart —app appname</span><br></pre></td></tr></table></figure>
+<h4 id="ログを後ろから見る"><a href="#ログを後ろから見る" class="headerlink" title="ログを後ろから見る"></a>ログを後ろから見る</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">heroku logs -t</span><br></pre></td></tr></table></figure>
+<h4 id="アプリ名を調べる"><a href="#アプリ名を調べる" class="headerlink" title="アプリ名を調べる"></a>アプリ名を調べる</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">heroku list</span><br></pre></td></tr></table></figure>
+<h4 id="heroku上でrailsのコンソールを実行"><a href="#heroku上でrailsのコンソールを実行" class="headerlink" title="heroku上でrailsのコンソールを実行"></a>heroku上でrailsのコンソールを実行</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">heroku run rails c</span><br></pre></td></tr></table></figure>
+<p>これのなにが便利かというと、デプロイした際の”App crashed”エラーの詳細を見れること。</p>
+<h2 id="デプロイ後のトラブル"><a href="#デプロイ後のトラブル" class="headerlink" title="デプロイ後のトラブル"></a>デプロイ後のトラブル</h2><p>RailsにはアセットパイプラインというJavaScriptやCSSを結合したり圧縮したりして、閲覧時の高速化を目指す仕組みがあります。この仕組みを利用するには以下の2種類の方法があります。  </p>
+<ol>
+<li><p>production環境でパイプラインを利用できるよう、プリコンパイルを実行する</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rake assets:precompile RAILS_ENV=production</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>デプロイ時に自動でプリコンパイルするよう設定を変更する<br>config/environments/production.rbを以下のように変更する</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">config.assets.compile = true</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>今回、僕に徹夜を強いたエラーは”rake abort! ~ Nil class　~”あんまり覚えてませんが確かこんなエラーがプリコンパイル時におきました。<br>原因としてはapplication.scssとfugafuga.scssで同じcssファイルを読み込んでることでした。application.scssの記述を削除すれば解決しました。</p>
+<h2 id="Chromeの過去のコンソールを表示"><a href="#Chromeの過去のコンソールを表示" class="headerlink" title="Chromeの過去のコンソールを表示"></a>Chromeの過去のコンソールを表示</h2><p>検証のpreserve logにチェックをつければ、ページ遷移後でも前のエラーを確認できる。　</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/31/今回の開発で学んだこと/" data-id="cira7qwg400057wycc2rohisi" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ruby-on-Rails/">Ruby on Rails</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/chrome/">chrome</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/heroku/">heroku</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-railsでのデータベースカラム追加-削除" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -98,9 +153,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/26/railsでのデータベースカラム追加-削除/" data-id="cir36d70u0001kiycdgnpp836" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/07/26/railsでのデータベースカラム追加-削除/" data-id="cira7qwgm00087wycbi5yybkc" class="article-share-link">Partager</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ORM/">ORM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ruby-on-Rails/">Ruby on Rails</a></li></ul>
+
     </footer>
   </div>
   
@@ -136,9 +193,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/06/25/Scalaはじめました/" data-id="cir36d70x0002kiycfes9anqp" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/06/25/Scalaはじめました/" data-id="cira7qwfo00007wycig56jqmu" class="article-share-link">Partager</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Scala/">Scala</a></li></ul>
+
     </footer>
   </div>
   
@@ -192,9 +251,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/06/07/Electronでmysql3を使おうとしたら色々大変だった/" data-id="cir36d70o0000kiycirpekr0j" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/06/07/Electronでmysql3を使おうとしたら色々大変だった/" data-id="cira7qwfu00017wycflhminz5" class="article-share-link">Partager</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Electron/">Electron</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sqlite3/">sqlite3</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/データベース/">データベース</a></li></ul>
+
     </footer>
   </div>
   
@@ -232,9 +293,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/05/16/jqueryのeachは個人的に使いにくい/" data-id="cir36d71p0005kiycnjjm40iz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/05/16/jqueryのeachは個人的に使いにくい/" data-id="cira7qwg300047wyc5kx584xn" class="article-share-link">Partager</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jquery/">jquery</a></li></ul>
+
     </footer>
   </div>
   
@@ -274,9 +337,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/16/本当にあった怖い話【Node編】/" data-id="cir36d71l0004kiycp0v0p1pr" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/16/本当にあった怖い話【Node編】/" data-id="cira7qwg800077wycx8cyq4k5" class="article-share-link">Partager</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/">Node.js</a></li></ul>
+
     </footer>
   </div>
   
@@ -311,7 +376,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/12/Hello/" data-id="cir36d7110003kiycqr2f88tv" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/12/Hello/" data-id="cira7qwg100037wychl4x697t" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -330,13 +395,27 @@
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Mot-clés</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Electron/">Electron</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ORM/">ORM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby-on-Rails/">Ruby on Rails</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chrome/">chrome</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/heroku/">heroku</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jquery/">jquery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sqlite3/">sqlite3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/データベース/">データベース</a></li></ul>
+    </div>
+  </div>
+
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Nuage de mot-clés</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Electron/" style="font-size: 10px;">Electron</a> <a href="/tags/Node-js/" style="font-size: 10px;">Node.js</a> <a href="/tags/ORM/" style="font-size: 10px;">ORM</a> <a href="/tags/Ruby-on-Rails/" style="font-size: 20px;">Ruby on Rails</a> <a href="/tags/Scala/" style="font-size: 10px;">Scala</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/heroku/" style="font-size: 10px;">heroku</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/sqlite3/" style="font-size: 10px;">sqlite3</a> <a href="/tags/データベース/" style="font-size: 10px;">データベース</a>
+    </div>
+  </div>
+
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Arkiv</h3>
+    <h3 class="widget-title">Archives</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li></ul>
     </div>
@@ -346,9 +425,13 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Siste innlegg</h3>
+    <h3 class="widget-title">Articles récents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2016/07/31/今回の開発で学んだこと/">今回の開発で学んだこと</a>
+          </li>
         
           <li>
             <a href="/2016/07/26/railsでのデータベースカラム追加-削除/">railsでのデータベースカラム追加/削除　</a>
@@ -366,10 +449,6 @@
             <a href="/2016/05/16/jqueryのeachは個人的に使いにくい/">jqueryのeachは個人的に使いにくい</a>
           </li>
         
-          <li>
-            <a href="/2016/04/16/本当にあった怖い話【Node編】/">本当にあった怖い話【Node編】</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -383,7 +462,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2016 John Doe<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>

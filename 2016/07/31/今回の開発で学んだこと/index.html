@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>今回の開発で学んだこと | 疲労こんぱいる...</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="オープンキャンパスでweb上でくじをひけるサービスを作成しました。herokuへデプロイしたとき、いくつかエラーが出たので、学んだことをまとめます。　　
+herokuの有用コマンドアプリを再起動する1heroku restart —app appname
+ログを後ろから見る1heroku logs -t
+アプリ名を調べる1heroku list
+heroku上でrailsのコンソールを実行1her">
+<meta property="og:type" content="article">
+<meta property="og:title" content="今回の開発で学んだこと">
+<meta property="og:url" content="http://yoursite.com/2016/07/31/今回の開発で学んだこと/index.html">
+<meta property="og:site_name" content="疲労こんぱいる...">
+<meta property="og:description" content="オープンキャンパスでweb上でくじをひけるサービスを作成しました。herokuへデプロイしたとき、いくつかエラーが出たので、学んだことをまとめます。　　
+herokuの有用コマンドアプリを再起動する1heroku restart —app appname
+ログを後ろから見る1heroku logs -t
+アプリ名を調べる1heroku list
+heroku上でrailsのコンソールを実行1her">
+<meta property="og:updated_time" content="2016-07-31T06:46:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="今回の開発で学んだこと">
+<meta name="twitter:description" content="オープンキャンパスでweb上でくじをひけるサービスを作成しました。herokuへデプロイしたとき、いくつかエラーが出たので、学んだことをまとめます。　　
+herokuの有用コマンドアプリを再起動する1heroku restart —app appname
+ログを後ろから見る1heroku logs -t
+アプリ名を調べる1heroku list
+heroku上でrailsのコンソールを実行1her">
+  
+    <link rel="alternate" href="/atom.xml" title="疲労こんぱいる..." type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">疲労こんぱいる...</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">身の回りの知ってるとちょっと得をする知識を垂れ流すブログ</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-今回の開発で学んだこと" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/31/今回の開発で学んだこと/" class="article-date">
+  <time datetime="2016-07-31T05:59:04.000Z" itemprop="datePublished">2016-07-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      今回の開発で学んだこと
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>オープンキャンパスでweb上でくじをひけるサービスを作成しました。<br>herokuへデプロイしたとき、いくつかエラーが出たので、学んだことをまとめます。　　</p>
+<h2 id="herokuの有用コマンド"><a href="#herokuの有用コマンド" class="headerlink" title="herokuの有用コマンド"></a>herokuの有用コマンド</h2><h4 id="アプリを再起動する"><a href="#アプリを再起動する" class="headerlink" title="アプリを再起動する"></a>アプリを再起動する</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">heroku restart —app appname</span><br></pre></td></tr></table></figure>
+<h4 id="ログを後ろから見る"><a href="#ログを後ろから見る" class="headerlink" title="ログを後ろから見る"></a>ログを後ろから見る</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">heroku logs -t</span><br></pre></td></tr></table></figure>
+<h4 id="アプリ名を調べる"><a href="#アプリ名を調べる" class="headerlink" title="アプリ名を調べる"></a>アプリ名を調べる</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">heroku list</span><br></pre></td></tr></table></figure>
+<h4 id="heroku上でrailsのコンソールを実行"><a href="#heroku上でrailsのコンソールを実行" class="headerlink" title="heroku上でrailsのコンソールを実行"></a>heroku上でrailsのコンソールを実行</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">heroku run rails c</span><br></pre></td></tr></table></figure>
+<p>これのなにが便利かというと、デプロイした際の”App crashed”エラーの詳細を見れること。</p>
+<h2 id="デプロイ後のトラブル"><a href="#デプロイ後のトラブル" class="headerlink" title="デプロイ後のトラブル"></a>デプロイ後のトラブル</h2><p>RailsにはアセットパイプラインというJavaScriptやCSSを結合したり圧縮したりして、閲覧時の高速化を目指す仕組みがあります。この仕組みを利用するには以下の2種類の方法があります。  </p>
+<ol>
+<li><p>production環境でパイプラインを利用できるよう、プリコンパイルを実行する</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rake assets:precompile RAILS_ENV=production</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>デプロイ時に自動でプリコンパイルするよう設定を変更する<br>config/environments/production.rbを以下のように変更する</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">config.assets.compile = true</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>今回、僕に徹夜を強いたエラーは”rake abort! ~ Nil class　~”あんまり覚えてませんが確かこんなエラーがプリコンパイル時におきました。<br>原因としてはapplication.scssとfugafuga.scssで同じcssファイルを読み込んでることでした。application.scssの記述を削除すれば解決しました。</p>
+<h2 id="Chromeの過去のコンソールを表示"><a href="#Chromeの過去のコンソールを表示" class="headerlink" title="Chromeの過去のコンソールを表示"></a>Chromeの過去のコンソールを表示</h2><p>検証のpreserve logにチェックをつければ、ページ遷移後でも前のエラーを確認できる。　</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/31/今回の開発で学んだこと/" data-id="cira7qwg400057wycc2rohisi" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ruby-on-Rails/">Ruby on Rails</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/chrome/">chrome</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/heroku/">heroku</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/07/26/railsでのデータベースカラム追加-削除/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Ancien</strong>
+      <div class="article-nav-title">railsでのデータベースカラム追加/削除　</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Mot-clés</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Electron/">Electron</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ORM/">ORM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby-on-Rails/">Ruby on Rails</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chrome/">chrome</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/heroku/">heroku</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jquery/">jquery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sqlite3/">sqlite3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/データベース/">データベース</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Nuage de mot-clés</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Electron/" style="font-size: 10px;">Electron</a> <a href="/tags/Node-js/" style="font-size: 10px;">Node.js</a> <a href="/tags/ORM/" style="font-size: 10px;">ORM</a> <a href="/tags/Ruby-on-Rails/" style="font-size: 20px;">Ruby on Rails</a> <a href="/tags/Scala/" style="font-size: 10px;">Scala</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/heroku/" style="font-size: 10px;">heroku</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/sqlite3/" style="font-size: 10px;">sqlite3</a> <a href="/tags/データベース/" style="font-size: 10px;">データベース</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Articles récents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/07/31/今回の開発で学んだこと/">今回の開発で学んだこと</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/26/railsでのデータベースカラム追加-削除/">railsでのデータベースカラム追加/削除　</a>
+          </li>
+        
+          <li>
+            <a href="/2016/06/25/Scalaはじめました/">Scalaはじめました</a>
+          </li>
+        
+          <li>
+            <a href="/2016/06/07/Electronでmysql3を使おうとしたら色々大変だった/">Electronでsqlite3を使おうとしたら色々大変だった</a>
+          </li>
+        
+          <li>
+            <a href="/2016/05/16/jqueryのeachは個人的に使いにくい/">jqueryのeachは個人的に使いにくい</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 John Doe<br>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
