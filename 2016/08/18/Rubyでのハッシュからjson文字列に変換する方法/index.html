@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Rubyでのハッシュからjson文字列に変換する方法 | 疲労こんぱいる...</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="個人的にこんがらがったので、メモ。Rubyでは、調べた限りだとハッシュからjsonへの変換する方法が3コ見つかりました。どちらも標準のjsonモジュールをインポートします。1require &amp;apos;json&amp;apos;
+この記事では、それら三つの変換方法の違いを述べていきます。また、記述に間違いなどありましたら申し訳ありません。  
+(1) generateメソッドを使う場合generateメ">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Rubyでのハッシュからjson文字列に変換する方法">
+<meta property="og:url" content="http://yoursite.com/2016/08/18/Rubyでのハッシュからjson文字列に変換する方法/index.html">
+<meta property="og:site_name" content="疲労こんぱいる...">
+<meta property="og:description" content="個人的にこんがらがったので、メモ。Rubyでは、調べた限りだとハッシュからjsonへの変換する方法が3コ見つかりました。どちらも標準のjsonモジュールをインポートします。1require &amp;apos;json&amp;apos;
+この記事では、それら三つの変換方法の違いを述べていきます。また、記述に間違いなどありましたら申し訳ありません。  
+(1) generateメソッドを使う場合generateメ">
+<meta property="og:updated_time" content="2016-08-18T12:55:51.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Rubyでのハッシュからjson文字列に変換する方法">
+<meta name="twitter:description" content="個人的にこんがらがったので、メモ。Rubyでは、調べた限りだとハッシュからjsonへの変換する方法が3コ見つかりました。どちらも標準のjsonモジュールをインポートします。1require &amp;apos;json&amp;apos;
+この記事では、それら三つの変換方法の違いを述べていきます。また、記述に間違いなどありましたら申し訳ありません。  
+(1) generateメソッドを使う場合generateメ">
+  
+    <link rel="alternate" href="/atom.xml" title="疲労こんぱいる..." type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">疲労こんぱいる...</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">身の回りの知ってるとちょっと得をする知識を垂れ流すブログ</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Rubyでのハッシュからjson文字列に変換する方法" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/08/18/Rubyでのハッシュからjson文字列に変換する方法/" class="article-date">
+  <time datetime="2016-08-18T11:59:08.000Z" itemprop="datePublished">2016-08-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Rubyでのハッシュからjson文字列に変換する方法
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>個人的にこんがらがったので、メモ。<br>Rubyでは、調べた限りだとハッシュからjsonへの変換する方法が3コ見つかりました。<br>どちらも標準のjsonモジュールをインポートします。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">require &apos;json&apos;</span><br></pre></td></tr></table></figure></p>
+<p>この記事では、それら三つの変換方法の違いを述べていきます。<br>また、記述に間違いなどありましたら申し訳ありません。  </p>
+<p>(1) generateメソッドを使う場合<br>generateメソッドの第一引数にオブジェクトまたは配列を渡すことで、jsonに変換します。<br>:例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hoge = &#123;&apos;age&apos;=&gt;18, &apos;tall&apos;=&gt;150&#125;</span><br><span class="line">JSON.generate(hoge)</span><br><span class="line">=&gt; &quot;&#123;\&quot;age\&quot;:18,\&quot;tall\&quot;:150&#125;&quot;</span><br></pre></td></tr></table></figure></p>
+<p>ここでのポイントは<br><strong>第一引数にオブジェクトまたは配列を渡すこと</strong><br>がgenerateメソッドの条件です。つまり、オブジェクト又は配列以外を渡すと変換に失敗します。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">str = &quot;abcde&quot;</span><br><span class="line">JSON.generate(str)</span><br><span class="line">=&gt;JSON::GeneratorError: only generation of JSON objects or arrays allowed  </span><br><span class="line">num = 1000</span><br><span class="line">JSON.generate(num)</span><br><span class="line">=&gt;JSON::GeneratorError: only generation of JSON objects or arrays allowed</span><br></pre></td></tr></table></figure></p>
+<p>(2) to_jsonメソッドを使う場合<br>generateメソッドと比較して、to_jsonメソッドはあらゆるクラスに対して寛容です。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">hoge = &#123;&apos;age&apos;=&gt;18, &apos;tall&apos;=&gt;150&#125;</span><br><span class="line">hoge.to_json</span><br><span class="line">=&gt; &quot;&#123;\&quot;age\&quot;:18,\&quot;tall\&quot;:150&#125;&quot;</span><br><span class="line">str = &quot;abcde&quot;</span><br><span class="line">str.to_json</span><br><span class="line">=&gt; &quot;\&quot;abcde\&quot;&quot;</span><br><span class="line">num = 1000</span><br><span class="line">num.to_json</span><br><span class="line">=&gt; &quot;1000&quot;</span><br></pre></td></tr></table></figure></p>
+<p>これがgenerateメソッドとの大きな違いになります。</p>
+<p>(3) dumpメソッドを使う場合<br>(このメソッドの解説は正確さに欠けるかもしれません)<br>dumpメソッドはこれまでの例で示してきたすべての文字列や配列をjsonに変換してくれます。<br>ただ、dumpメソッドはマーシャルやヤムル(いずれもデータフォーマット)のload/dump実行の一部です。<br>ゆえに、上のメソッドと違い、ファイルに変換したjson文字列を書き込むことができます。</p>
+<p>(4) まとめ<br>とりあえずjson文字列に変換したい場合、どのメソッドを使ってもよさそう。ファイルに書き込みとかするなら、dumpメソッドがよさそう。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/08/18/Rubyでのハッシュからjson文字列に変換する方法/" data-id="cis0byxrx000t8uycsqy27r2t" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ruby/">Ruby</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/json/">json</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/07/31/今回の開発で学んだこと/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Ancien</strong>
+      <div class="article-nav-title">今回の開発で学んだこと</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Mot-clés</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Electron/">Electron</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ORM/">ORM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby-on-Rails/">Ruby on Rails</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chrome/">chrome</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/heroku/">heroku</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jquery/">jquery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/json/">json</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sqlite3/">sqlite3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/データベース/">データベース</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Nuage de mot-clés</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Electron/" style="font-size: 10px;">Electron</a> <a href="/tags/Node-js/" style="font-size: 10px;">Node.js</a> <a href="/tags/ORM/" style="font-size: 10px;">ORM</a> <a href="/tags/Ruby/" style="font-size: 10px;">Ruby</a> <a href="/tags/Ruby-on-Rails/" style="font-size: 20px;">Ruby on Rails</a> <a href="/tags/Scala/" style="font-size: 10px;">Scala</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/heroku/" style="font-size: 10px;">heroku</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/json/" style="font-size: 10px;">json</a> <a href="/tags/sqlite3/" style="font-size: 10px;">sqlite3</a> <a href="/tags/データベース/" style="font-size: 10px;">データベース</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Articles récents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/08/18/Rubyでのハッシュからjson文字列に変換する方法/">Rubyでのハッシュからjson文字列に変換する方法</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/31/今回の開発で学んだこと/">今回の開発で学んだこと</a>
+          </li>
+        
+          <li>
+            <a href="/2016/07/26/railsでのデータベースカラム追加-削除/">railsでのデータベースカラム追加/削除　</a>
+          </li>
+        
+          <li>
+            <a href="/2016/06/25/Scalaはじめました/">Scalaはじめました</a>
+          </li>
+        
+          <li>
+            <a href="/2016/06/07/Electronでmysql3を使おうとしたら色々大変だった/">Electronでsqlite3を使おうとしたら色々大変だった</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 John Doe<br>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

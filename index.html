@@ -55,9 +55,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -67,6 +67,52 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-Rubyでのハッシュからjson文字列に変換する方法" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/08/18/Rubyでのハッシュからjson文字列に変換する方法/" class="article-date">
+  <time datetime="2016-08-18T11:59:08.000Z" itemprop="datePublished">2016-08-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/08/18/Rubyでのハッシュからjson文字列に変換する方法/">Rubyでのハッシュからjson文字列に変換する方法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>個人的にこんがらがったので、メモ。<br>Rubyでは、調べた限りだとハッシュからjsonへの変換する方法が3コ見つかりました。<br>どちらも標準のjsonモジュールをインポートします。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">require &apos;json&apos;</span><br></pre></td></tr></table></figure></p>
+<p>この記事では、それら三つの変換方法の違いを述べていきます。<br>また、記述に間違いなどありましたら申し訳ありません。  </p>
+<p>(1) generateメソッドを使う場合<br>generateメソッドの第一引数にオブジェクトまたは配列を渡すことで、jsonに変換します。<br>:例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hoge = &#123;&apos;age&apos;=&gt;18, &apos;tall&apos;=&gt;150&#125;</span><br><span class="line">JSON.generate(hoge)</span><br><span class="line">=&gt; &quot;&#123;\&quot;age\&quot;:18,\&quot;tall\&quot;:150&#125;&quot;</span><br></pre></td></tr></table></figure></p>
+<p>ここでのポイントは<br><strong>第一引数にオブジェクトまたは配列を渡すこと</strong><br>がgenerateメソッドの条件です。つまり、オブジェクト又は配列以外を渡すと変換に失敗します。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">str = &quot;abcde&quot;</span><br><span class="line">JSON.generate(str)</span><br><span class="line">=&gt;JSON::GeneratorError: only generation of JSON objects or arrays allowed  </span><br><span class="line">num = 1000</span><br><span class="line">JSON.generate(num)</span><br><span class="line">=&gt;JSON::GeneratorError: only generation of JSON objects or arrays allowed</span><br></pre></td></tr></table></figure></p>
+<p>(2) to_jsonメソッドを使う場合<br>generateメソッドと比較して、to_jsonメソッドはあらゆるクラスに対して寛容です。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">hoge = &#123;&apos;age&apos;=&gt;18, &apos;tall&apos;=&gt;150&#125;</span><br><span class="line">hoge.to_json</span><br><span class="line">=&gt; &quot;&#123;\&quot;age\&quot;:18,\&quot;tall\&quot;:150&#125;&quot;</span><br><span class="line">str = &quot;abcde&quot;</span><br><span class="line">str.to_json</span><br><span class="line">=&gt; &quot;\&quot;abcde\&quot;&quot;</span><br><span class="line">num = 1000</span><br><span class="line">num.to_json</span><br><span class="line">=&gt; &quot;1000&quot;</span><br></pre></td></tr></table></figure></p>
+<p>これがgenerateメソッドとの大きな違いになります。</p>
+<p>(3) dumpメソッドを使う場合<br>(このメソッドの解説は正確さに欠けるかもしれません)<br>dumpメソッドはこれまでの例で示してきたすべての文字列や配列をjsonに変換してくれます。<br>ただ、dumpメソッドはマーシャルやヤムル(いずれもデータフォーマット)のload/dump実行の一部です。<br>ゆえに、上のメソッドと違い、ファイルに変換したjson文字列を書き込むことができます。</p>
+<p>(4) まとめ<br>とりあえずjson文字列に変換したい場合、どのメソッドを使ってもよさそう。ファイルに書き込みとかするなら、dumpメソッドがよさそう。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/08/18/Rubyでのハッシュからjson文字列に変換する方法/" data-id="cis0byxrx000t8uycsqy27r2t" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ruby/">Ruby</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/json/">json</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-今回の開発で学んだこと" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -111,7 +157,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/31/今回の開発で学んだこと/" data-id="ciraco5fz0007ftycunq9902k" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/07/31/今回の開発で学んだこと/" data-id="cis0byxp300068uycwd1ex5fn" class="article-share-link">Partager</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ruby-on-Rails/">Ruby on Rails</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/chrome/">chrome</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/heroku/">heroku</a></li></ul>
@@ -153,7 +199,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/26/railsでのデータベースカラム追加-削除/" data-id="ciraco5fs0004ftycctndkh2s" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/07/26/railsでのデータベースカラム追加-削除/" data-id="cis0byxp000048uycny5mdgd0" class="article-share-link">Partager</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ORM/">ORM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ruby-on-Rails/">Ruby on Rails</a></li></ul>
@@ -193,7 +239,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/06/25/Scalaはじめました/" data-id="ciraco5fw0005ftyc7xj0a3x7" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/06/25/Scalaはじめました/" data-id="cis0byxoe00008uyc13rradle" class="article-share-link">Partager</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Scala/">Scala</a></li></ul>
@@ -251,7 +297,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/06/07/Electronでmysql3を使おうとしたら色々大変だった/" data-id="ciraco5fi0002ftycs5tue2ds" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/06/07/Electronでmysql3を使おうとしたら色々大変だった/" data-id="cis0byxox00038uycvmjjipcm" class="article-share-link">Partager</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Electron/">Electron</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sqlite3/">sqlite3</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/データベース/">データベース</a></li></ul>
@@ -293,7 +339,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/05/16/jqueryのeachは個人的に使いにくい/" data-id="ciraco5ff0001ftycilp12odi" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/05/16/jqueryのeachは個人的に使いにくい/" data-id="cis0byxpe00098uycy6xsn404" class="article-share-link">Partager</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jquery/">jquery</a></li></ul>
@@ -337,7 +383,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/16/本当にあった怖い話【Node編】/" data-id="ciraco5g20009ftycvqzwaf2e" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/16/本当にあった怖い話【Node編】/" data-id="cis0byxpa00088uyc0u9u6d2u" class="article-share-link">Partager</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/">Node.js</a></li></ul>
@@ -376,7 +422,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/12/Hello/" data-id="ciraco5f70000ftyc33tzzm1b" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/12/Hello/" data-id="cis0byxon00018uyc82j6t354" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -396,9 +442,9 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
+    <h3 class="widget-title">Mot-clés</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Electron/">Electron</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ORM/">ORM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby-on-Rails/">Ruby on Rails</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chrome/">chrome</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/heroku/">heroku</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jquery/">jquery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sqlite3/">sqlite3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/データベース/">データベース</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Electron/">Electron</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ORM/">ORM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby-on-Rails/">Ruby on Rails</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chrome/">chrome</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/heroku/">heroku</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jquery/">jquery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/json/">json</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sqlite3/">sqlite3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/データベース/">データベース</a></li></ul>
     </div>
   </div>
 
@@ -406,9 +452,9 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
+    <h3 class="widget-title">Nuage de mot-clés</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Electron/" style="font-size: 10px;">Electron</a> <a href="/tags/Node-js/" style="font-size: 10px;">Node.js</a> <a href="/tags/ORM/" style="font-size: 10px;">ORM</a> <a href="/tags/Ruby-on-Rails/" style="font-size: 20px;">Ruby on Rails</a> <a href="/tags/Scala/" style="font-size: 10px;">Scala</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/heroku/" style="font-size: 10px;">heroku</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/sqlite3/" style="font-size: 10px;">sqlite3</a> <a href="/tags/データベース/" style="font-size: 10px;">データベース</a>
+      <a href="/tags/Electron/" style="font-size: 10px;">Electron</a> <a href="/tags/Node-js/" style="font-size: 10px;">Node.js</a> <a href="/tags/ORM/" style="font-size: 10px;">ORM</a> <a href="/tags/Ruby/" style="font-size: 10px;">Ruby</a> <a href="/tags/Ruby-on-Rails/" style="font-size: 20px;">Ruby on Rails</a> <a href="/tags/Scala/" style="font-size: 10px;">Scala</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/heroku/" style="font-size: 10px;">heroku</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/json/" style="font-size: 10px;">json</a> <a href="/tags/sqlite3/" style="font-size: 10px;">sqlite3</a> <a href="/tags/データベース/" style="font-size: 10px;">データベース</a>
     </div>
   </div>
 
@@ -417,7 +463,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li></ul>
     </div>
   </div>
 
@@ -425,9 +471,13 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">Articles récents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2016/08/18/Rubyでのハッシュからjson文字列に変換する方法/">Rubyでのハッシュからjson文字列に変換する方法</a>
+          </li>
         
           <li>
             <a href="/2016/07/31/今回の開発で学んだこと/">今回の開発で学んだこと</a>
@@ -445,10 +495,6 @@
             <a href="/2016/06/07/Electronでmysql3を使おうとしたら色々大変だった/">Electronでsqlite3を使おうとしたら色々大変だった</a>
           </li>
         
-          <li>
-            <a href="/2016/05/16/jqueryのeachは個人的に使いにくい/">jqueryのeachは個人的に使いにくい</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -462,7 +508,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2016 John Doe<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>
