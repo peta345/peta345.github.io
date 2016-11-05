@@ -3,17 +3,21 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Tag: chrome | 疲労こんぱいる...</title>
+  <title>mysqlにログインできなかった問題が解決した話 | 疲労こんぱいる...</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="疲労こんぱいる...">
-<meta property="og:url" content="http://yoursite.com/tags/chrome/index.html">
+  <meta name="description" content="エラーその１mysql -uroot したときにログインできないよエラー1ERROR 2002 (HY000): Can&amp;apos;t connect to local MySQL server through socket &amp;apos;/tmp/mysql.sock&amp;apos; (2)
+こんな表示がされるこれは僕の環境だと単純に/tmp/ディレクトリにmysql.sockがなかったため。なので、">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysqlにログインできなかった問題が解決した話">
+<meta property="og:url" content="http://yoursite.com/2016/11/05/mysqlにログインできなかった問題が解決した話/index.html">
 <meta property="og:site_name" content="疲労こんぱいる...">
-<meta property="og:description">
+<meta property="og:description" content="エラーその１mysql -uroot したときにログインできないよエラー1ERROR 2002 (HY000): Can&amp;apos;t connect to local MySQL server through socket &amp;apos;/tmp/mysql.sock&amp;apos; (2)
+こんな表示がされるこれは僕の環境だと単純に/tmp/ディレクトリにmysql.sockがなかったため。なので、">
+<meta property="og:updated_time" content="2016-11-05T14:49:14.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="疲労こんぱいる...">
-<meta name="twitter:description">
+<meta name="twitter:title" content="mysqlにログインできなかった問題が解決した話">
+<meta name="twitter:description" content="エラーその１mysql -uroot したときにログインできないよエラー1ERROR 2002 (HY000): Can&amp;apos;t connect to local MySQL server through socket &amp;apos;/tmp/mysql.sock&amp;apos; (2)
+こんな表示がされるこれは僕の環境だと単純に/tmp/ディレクトリにmysql.sockがなかったため。なので、">
   
     <link rel="alternate" href="/atom.xml" title="疲労こんぱいる..." type="application/atom+xml">
   
@@ -66,39 +70,59 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2016/07/31/今回の開発で学んだこと/" class="archive-article-date">
-  <time datetime="2016-07-31T05:59:04.000Z" itemprop="datePublished">Jul 31</time>
+        <section id="main"><article id="post-mysqlにログインできなかった問題が解決した話" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/11/05/mysqlにログインできなかった問題が解決した話/" class="article-date">
+  <time datetime="2016-11-05T14:33:00.000Z" itemprop="datePublished">2016-11-05</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/07/31/今回の開発で学んだこと/">今回の開発で学んだこと</a>
+    <h1 class="article-title" itemprop="name">
+      mysqlにログインできなかった問題が解決した話
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>エラーその１<br>mysql -uroot したときにログインできないよエラー<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ERROR 2002 (HY000): Can&apos;t connect to local MySQL server through socket &apos;/tmp/mysql.sock&apos; (2)</span><br></pre></td></tr></table></figure></p>
+<p>こんな表示がされる<br>これは僕の環境だと単純に/tmp/ディレクトリにmysql.sockがなかったため。<br>なので、touchコマンドで作ってやった  </p>
+<p>で、mysql.server restrt しようとすると今度は…<br>エラーその２<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">touch: /usr/local/var/mysql/hogehoge.local.pid.shutdown: Permission denied</span><br><span class="line">cat: /usr/local/var/mysql/hogehoge.local.pid: Permission denied</span><br><span class="line"> ERROR! MySQL server process # is not running!</span><br><span class="line">override rw-r-----  _mysql/_mysql for /usr/local/var/mysql/hogehoge.local.pid?</span><br><span class="line">Starting MySQL</span><br><span class="line"> SUCCESS!</span><br></pre></td></tr></table></figure></p>
+<p>日本語でおk<br>なんかmysql走ってるぽい表示されてるけど、プロセス自体はない<br>このエラーはmysqlがファイル作りたいけど権限がなくて作れないよ〜ウエーンというエラー(たぶん)<br>なので、/usr/loca/var をls -llでみてみる<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">drwxr-xr-x   3 hogehoge    admin    102  6 19  2015 hoge</span><br><span class="line">drwxr-xr-x   3 hogehoge    admin    102  8 29  2015 fuga</span><br><span class="line">drwxr-xr-x   3 hogehoge    admin    102  8 13  2015 piyo</span><br><span class="line">drwxr-xr-x   9 hogehoge    admin    306  9 23  2015 poko</span><br><span class="line">drwxr-xr-x  30 _mysql  _mysql  1020 10 26 19:16 mysql</span><br><span class="line">drwx------  25 hogehoge    admin    850  9 13 22:39 puka</span><br><span class="line">drwxr-xr-x   2 hogehoge    admin     68  8 29  2015 poka</span><br></pre></td></tr></table></figure></p>
+<p>なるほど、確かにmysqlディレクトリには書き込み権限自体はあるが、所有者が_mysqlになってて所有者自体に権限がなさそうだ<br>じゃあ、mysqlディレクトリを自分のユーザ名に変えてしまおう<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chown -R your_username mysql</span><br></pre></td></tr></table></figure></p>
+<p>このコマンドで、mysqlディレクトリの所有者を再帰的にyour_usernameにしたところ、うまくログインできるようになった</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/11/05/mysqlにログインできなかった問題が解決した話/" data-id="civ5bvgrt000w34ycg8gy2ije" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li></ul>
+
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/10/03/CSSで一行の中で左寄せと右寄せを使いたい時/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">CSSで一行の中で左寄せと右寄せを使いたい時</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
 
 </section>
         
