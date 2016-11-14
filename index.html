@@ -55,9 +55,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -67,6 +67,51 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-haskellの関数構文" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/11/14/haskellの関数構文/" class="article-date">
+  <time datetime="2016-11-14T12:02:19.000Z" itemprop="datePublished">2016-11-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/11/14/haskellの関数構文/">haskellの関数構文</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>haskellの関数構文メモ<br>パターンマッチ 引数を定数で場合分けできる<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">yourName :: String -&gt; String</span><br><span class="line">yourName &quot;poo&quot; = &quot;Hi, poo&quot;</span><br><span class="line">yourName &quot;boo&quot; = &quot;Hi, boo&quot;</span><br><span class="line">yourName x = &quot;invalid name&quot;</span><br></pre></td></tr></table></figure></p>
+<p>ガード 引数を範囲で場合分けできる<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">yourMemory :: Int -&gt; Int -&gt; String</span><br><span class="line">yourMemory val1 val2</span><br><span class="line">  | val1+val2 &lt; 4 = &quot;low spec&quot;</span><br><span class="line">  | val1+val2 &lt; 8 = &quot;common spec&quot;</span><br><span class="line">  | val1+val2 &lt; 16 = &quot;high spec&quot;</span><br><span class="line">  | otherwise = &quot;invalid value&quot;</span><br></pre></td></tr></table></figure></p>
+<p>他の書き方<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">yourMemory&apos; :: Int -&gt; Int -&gt; String</span><br><span class="line">yourMemory&apos; val1 val2</span><br><span class="line">  | memory &lt; 4 = &quot;low spec&quot;</span><br><span class="line">  | memory &lt; 8 = &quot;common spec&quot;</span><br><span class="line">  | memory &lt; 16 = &quot;high spec&quot;</span><br><span class="line">  | otherwise = &quot;invalid value&quot;</span><br><span class="line">  where memory = val1 + val2</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">yourMemory&apos;&apos; :: Int -&gt; Int -&gt; String</span><br><span class="line">yourMemory&apos;&apos; val1 val2</span><br><span class="line">  | memory &lt; low = &quot;low spec&quot;</span><br><span class="line">  | memory &lt; com = &quot;common spec&quot;</span><br><span class="line">  | memory &lt; high = &quot;hight spec&quot;</span><br><span class="line">  | otherwise = &quot;invalid value&quot;</span><br><span class="line">  where memory = val1 + val2</span><br><span class="line">        (low, com, high) = (4,8,16)</span><br></pre></td></tr></table></figure>
+<p>whereの中に関数をかける<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sqArea :: [(Double, Double)] -&gt; [Double]</span><br><span class="line">sqArea s = [cal w h | (w, h) &lt;- s]</span><br><span class="line">  where cal weight height = weight * height</span><br></pre></td></tr></table></figure></p>
+<p>let式はin以降が値<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cylinder r h =</span><br><span class="line">  let sideArea = 2 * pi * r * h</span><br><span class="line">      topArea = pi * r ^ 2</span><br><span class="line">  in  sideArea + 2 * topArea</span><br></pre></td></tr></table></figure></p>
+<p>また、letはローカルスコープに関数を作る時に使える<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[let listManage x = [y * x | y &lt;- [1..10]] in (listManage 1, listManage 2, listManage 3)]</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/11/14/haskellの関数構文/" data-id="civi139qw000wbvyc8r12o1b4" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/haskell/">haskell</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-mysqlにログインできなかった問題が解決した話" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -100,7 +145,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/11/05/mysqlにログインできなかった問題が解決した話/" data-id="civ5bvgrt000w34ycg8gy2ije" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/11/05/mysqlにログインできなかった問題が解決した話/" data-id="civi139qs000vbvyc6min9794" class="article-share-link">Partager</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li></ul>
@@ -142,7 +187,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/10/03/CSSで一行の中で左寄せと右寄せを使いたい時/" data-id="civ5bvgri000t34ycntfqq93g" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/10/03/CSSで一行の中で左寄せと右寄せを使いたい時/" data-id="civi139qj000sbvycg4nt51gz" class="article-share-link">Partager</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li></ul>
@@ -188,7 +233,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/18/Rubyでのハッシュからjson文字列に変換する方法/" data-id="civ5bvgrq000u34yc8yxpueat" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/18/Rubyでのハッシュからjson文字列に変換する方法/" data-id="civi139qp000tbvycl58ncow9" class="article-share-link">Partager</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ruby/">Ruby</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/json/">json</a></li></ul>
@@ -243,7 +288,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/31/今回の開発で学んだこと/" data-id="civ5bvgoz000634yc8ziwujj3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/07/31/今回の開発で学んだこと/" data-id="civi139od000kbvycwqdfdfnu" class="article-share-link">Partager</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ruby-on-Rails/">Ruby on Rails</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/chrome/">chrome</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/heroku/">heroku</a></li></ul>
@@ -285,7 +330,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/26/railsでのデータベースカラム追加-削除/" data-id="civ5bvgp4000834yc3r38dz49" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/07/26/railsでのデータベースカラム追加-削除/" data-id="civi139nh0006bvyc6rzbdb41" class="article-share-link">Partager</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ORM/">ORM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ruby-on-Rails/">Ruby on Rails</a></li></ul>
@@ -325,7 +370,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/06/25/Scalaはじめました/" data-id="civ5bvgob000034yc3807xcip" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/06/25/Scalaはじめました/" data-id="civi139na0003bvycv6b8eru7" class="article-share-link">Partager</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Scala/">Scala</a></li></ul>
@@ -383,7 +428,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/06/07/Electronでmysql3を使おうとしたら色々大変だった/" data-id="civ5bvgot000334ycbk0rvxmn" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/06/07/Electronでmysql3を使おうとしたら色々大変だった/" data-id="civi139mo0000bvyc3b2gk27p" class="article-share-link">Partager</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Electron/">Electron</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sqlite3/">sqlite3</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/データベース/">データベース</a></li></ul>
@@ -425,7 +470,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/05/16/jqueryのeachは個人的に使いにくい/" data-id="civ5bvgom000134ychmj8wfir" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/05/16/jqueryのeachは個人的に使いにくい/" data-id="civi139nd0004bvycxjsjtjgd" class="article-share-link">Partager</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jquery/">jquery</a></li></ul>
@@ -469,7 +514,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/16/本当にあった怖い話【Node編】/" data-id="civ5bvgp7000934yc9560eu1l" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/16/本当にあった怖い話【Node編】/" data-id="civi139o9000jbvyc7hcn4zf1" class="article-share-link">Partager</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/">Node.js</a></li></ul>
@@ -481,44 +526,11 @@
 
 
   
-    <article id="post-Hello" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/04/12/Hello/" class="article-date">
-  <time datetime="2016-04-12T06:24:27.000Z" itemprop="datePublished">2016-04-12</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/12/Hello/">Hello</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="ごあいさつ"><a href="#ごあいさつ" class="headerlink" title="ごあいさつ"></a>ごあいさつ</h1><p>はじめまして〜<br>このブログでは技術ネタや身の回りの役に立ちそうな知識などを垂れ流していきます。<br>よろしくお願いします。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/12/Hello/" data-id="civ5bvgox000434ycoh6r4ws0" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
 
 
-  
-
+  <nav id="page-nav">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">__('next') &raquo;</a>
+  </nav>
 </section>
         
           <aside id="sidebar">
@@ -528,9 +540,9 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
+    <h3 class="widget-title">Mot-clés</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Electron/">Electron</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ORM/">ORM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby-on-Rails/">Ruby on Rails</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chrome/">chrome</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/heroku/">heroku</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jquery/">jquery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/json/">json</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sqlite3/">sqlite3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/データベース/">データベース</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Electron/">Electron</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ORM/">ORM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby-on-Rails/">Ruby on Rails</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/chrome/">chrome</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/haskell/">haskell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/heroku/">heroku</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jquery/">jquery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/json/">json</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sqlite3/">sqlite3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/データベース/">データベース</a></li></ul>
     </div>
   </div>
 
@@ -538,9 +550,9 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
+    <h3 class="widget-title">Nuage de mot-clés</h3>
     <div class="widget tagcloud">
-      <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/Electron/" style="font-size: 10px;">Electron</a> <a href="/tags/Node-js/" style="font-size: 10px;">Node.js</a> <a href="/tags/ORM/" style="font-size: 10px;">ORM</a> <a href="/tags/Ruby/" style="font-size: 10px;">Ruby</a> <a href="/tags/Ruby-on-Rails/" style="font-size: 20px;">Ruby on Rails</a> <a href="/tags/Scala/" style="font-size: 10px;">Scala</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/heroku/" style="font-size: 10px;">heroku</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/json/" style="font-size: 10px;">json</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/sqlite3/" style="font-size: 10px;">sqlite3</a> <a href="/tags/データベース/" style="font-size: 10px;">データベース</a>
+      <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/Electron/" style="font-size: 10px;">Electron</a> <a href="/tags/Node-js/" style="font-size: 10px;">Node.js</a> <a href="/tags/ORM/" style="font-size: 10px;">ORM</a> <a href="/tags/Ruby/" style="font-size: 10px;">Ruby</a> <a href="/tags/Ruby-on-Rails/" style="font-size: 20px;">Ruby on Rails</a> <a href="/tags/Scala/" style="font-size: 10px;">Scala</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/haskell/" style="font-size: 10px;">haskell</a> <a href="/tags/heroku/" style="font-size: 10px;">heroku</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/json/" style="font-size: 10px;">json</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/sqlite3/" style="font-size: 10px;">sqlite3</a> <a href="/tags/データベース/" style="font-size: 10px;">データベース</a>
     </div>
   </div>
 
@@ -557,9 +569,13 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">Articles récents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2016/11/14/haskellの関数構文/">haskellの関数構文</a>
+          </li>
         
           <li>
             <a href="/2016/11/05/mysqlにログインできなかった問題が解決した話/">mysqlにログインできなかった問題が解決した話</a>
@@ -577,10 +593,6 @@
             <a href="/2016/07/31/今回の開発で学んだこと/">今回の開発で学んだこと</a>
           </li>
         
-          <li>
-            <a href="/2016/07/26/railsでのデータベースカラム追加-削除/">railsでのデータベースカラム追加/削除　</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -594,7 +606,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2016 John Doe<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>
