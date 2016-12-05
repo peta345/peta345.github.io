@@ -3,17 +3,21 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Tag: Ruby | 疲労こんぱいる...</title>
+  <title>kaminariで1ページ内で複数のpaginationを使う方法 | 疲労こんぱいる...</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="疲労こんぱいる...">
-<meta property="og:url" content="http://yoursite.com/tags/Ruby/index.html">
+  <meta name="description" content="現状、あるモデルからのデータは1ページ、1paginationで使用していたなんと、800件をも超えるデータをページングしていたのだ(ページ数は600件を超えていた)この仕様に不満を持った何者かのダークパワーで1ページに複数のロジック(例えば、一つ目は日付順、二つ目は更新日順)などを分けるようにと仕事が回ってきてしまった  
+僕はタブで分けて、そして流石のkaminari、その機能は標準でついてい">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kaminariで1ページ内で複数のpaginationを使う方法">
+<meta property="og:url" content="http://yoursite.com/2016/12/05/kaminariで1ページ内で複数のpaginationを使う方法/index.html">
 <meta property="og:site_name" content="疲労こんぱいる...">
-<meta property="og:description">
+<meta property="og:description" content="現状、あるモデルからのデータは1ページ、1paginationで使用していたなんと、800件をも超えるデータをページングしていたのだ(ページ数は600件を超えていた)この仕様に不満を持った何者かのダークパワーで1ページに複数のロジック(例えば、一つ目は日付順、二つ目は更新日順)などを分けるようにと仕事が回ってきてしまった  
+僕はタブで分けて、そして流石のkaminari、その機能は標準でついてい">
+<meta property="og:updated_time" content="2016-12-05T13:16:52.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="疲労こんぱいる...">
-<meta name="twitter:description">
+<meta name="twitter:title" content="kaminariで1ページ内で複数のpaginationを使う方法">
+<meta name="twitter:description" content="現状、あるモデルからのデータは1ページ、1paginationで使用していたなんと、800件をも超えるデータをページングしていたのだ(ページ数は600件を超えていた)この仕様に不満を持った何者かのダークパワーで1ページに複数のロジック(例えば、一つ目は日付順、二つ目は更新日順)などを分けるようにと仕事が回ってきてしまった  
+僕はタブで分けて、そして流石のkaminari、その機能は標準でついてい">
   
     <link rel="alternate" href="/atom.xml" title="疲労こんぱいる..." type="application/atom+xml">
   
@@ -66,39 +70,60 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2016/08/18/Rubyでのハッシュからjson文字列に変換する方法/" class="archive-article-date">
-  <time datetime="2016-08-18T11:59:08.000Z" itemprop="datePublished">Aug 18</time>
+        <section id="main"><article id="post-kaminariで1ページ内で複数のpaginationを使う方法" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/12/05/kaminariで1ページ内で複数のpaginationを使う方法/" class="article-date">
+  <time datetime="2016-12-05T12:54:50.000Z" itemprop="datePublished">2016-12-05</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/08/18/Rubyでのハッシュからjson文字列に変換する方法/">Rubyでのハッシュからjson文字列に変換する方法</a>
+    <h1 class="article-title" itemprop="name">
+      kaminariで1ページ内で複数のpaginationを使う方法
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>現状、あるモデルからのデータは1ページ、1paginationで使用していた<br>なんと、800件をも超えるデータをページングしていたのだ(ページ数は600件を超えていた)<br>この仕様に不満を持った何者かのダークパワーで1ページに複数のロジック(例えば、一つ目は日付順、二つ目は更新日順)などを分けるようにと仕事が回ってきてしまった  </p>
+<p>僕はタブで分けて、そして流石のkaminari、その機能は標準でついていた<br>当初のコントローラーはこのようになっていた<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">def set_hoge</span><br><span class="line">  @hoge = Hoge.where(fuga: 1).page(params[:page])</span><br></pre></td></tr></table></figure></p>
+<p>次に僕が書いたのはこんな感じ<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def set_hoge</span><br><span class="line">  # 日付順</span><br><span class="line">  @hoge1 = Hoge.where(fuga: 1).page(params[:page])</span><br><span class="line">  #更新日順</span><br><span class="line">  @hoge2 = Hoge.where(fuga: 2).page(params[:page])</span><br></pre></td></tr></table></figure></p>
+<p>ただ、このままだとクエリが共有されるので、上手くいかない<br>最終的に次のようになった<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">def set_hoge</span><br><span class="line">  # 日付順</span><br><span class="line">  @hoge1 = Hoge.where(fuga: 1).page(params[:page_1])</span><br><span class="line">  @hoge2 = Hoge.where(fuga: 2).page(params[:page_2])</span><br></pre></td></tr></table></figure></p>
+<p>index.html.haml<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">.hoge= paginate @hoge1, :param_name =&gt; &apos;page_1&apos;</span><br><span class="line">.hoge= paginate @hoge2, :param_name =&gt; &apos;page_2&apos;</span><br></pre></td></tr></table></figure></p>
+<p>このparam_nameを使ってやると、クエリは共有されなくなる<br>具体的には、kaminariはつぎのようなクエリを発行する<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">localhst:3000/hoge?page_1=2&amp;page_2=3</span><br></pre></td></tr></table></figure></p>
+<p>しかし、kaminariってほとんど何も考えなくてページングできるから便利ね</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/12/05/kaminariで1ページ内で複数のpaginationを使う方法/" data-id="ciwc3mb1f000w71yc87df5nnu" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ruby-on-Rails/">Ruby on Rails</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/kaminari/">kaminari</a></li></ul>
+
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/11/14/haskellの関数構文/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">haskellの関数構文</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
 
 </section>
         
